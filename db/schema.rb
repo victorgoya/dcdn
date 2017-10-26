@@ -12,11 +12,14 @@
 
 ActiveRecord::Schema.define(version: 20171020151828) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "contents", force: :cascade do |t|
     t.string "key"
-    t.string "sha1sum"
     t.string "info_hash"
     t.string "title"
+    t.binary "torrent"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
