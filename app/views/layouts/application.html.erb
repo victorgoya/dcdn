@@ -8,6 +8,13 @@
   </head>
 
   <body style="margin: 0;">
-    <div id="app"></div>
+    <div
+      id="app"
+      data-s3key="<%= ENV["S3_KEY"] %>"
+      data-s3bucket="<%= ENV["S3_BUCKET"] %>"
+      data-s3region="<%= ENV["S3_REGION"] %>"
+      data-s3signerurl="<%= s3_sign_url %>"
+    >
+    </div>
   </body>
 </html>

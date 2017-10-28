@@ -3,7 +3,7 @@ import MaterialAppBar from 'material-ui/AppBar';
 import FlatButton from 'material-ui/FlatButton';
 import { connect } from 'react-redux'
 
-import { openVideoDialog } from '../actions/videoDialog'
+import { openContentForm } from '../actions/contentForm'
 
 const AppBar = (props) => {
   return (
@@ -17,7 +17,7 @@ const AppBar = (props) => {
 const mapDispatchToProps = dispatch => {
   return {
     onOpen: () => (
-      dispatch(openVideoDialog())
+      dispatch(openContentForm())
     )
   }
 }
