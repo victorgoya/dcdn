@@ -55,4 +55,4 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'webpacker', github: "rails/webpacker"
 gem 'figaro'
-gem 'ruby-hmac'
+gem 'decent_exposure', '3.0.0'

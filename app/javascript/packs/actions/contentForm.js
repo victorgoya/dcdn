@@ -2,14 +2,7 @@ import createTorrent from "../createTorrent";
 import Evaporate from "evaporate";
 import AWS from "aws-sdk";
 import { change } from "redux-form";
-
-export function openContentForm() {
-  return { type: "OPEN_CONTENT_FORM" };
-}
-
-export function closeContentForm() {
-  return { type: "CLOSE_CONTENT_FORM" };
-}
+import { post } from "../http";
 
 export function setS3UploadState(state) {
   return { type: "SET_S3_UPLOAD_STATE", state };
@@ -53,4 +46,19 @@ export function uploadToS3(form, field, files) {
       })
     });
   };
+}
+
+export function submitContent(values) {
+  return (dispatch, getState) => {
+    const { configuration } = getState();
+
+    post(configuration.contentsurl, {
+      content: {
+        key: values.key,
+        torrent: values.torrent.toString('base64'),
+        title: values.title,
+        description: values.description
+      }
+    }).then(res => dispatch({ type: "CONTENT_ADD", payload: res }))
+  }
 }

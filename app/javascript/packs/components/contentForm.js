@@ -7,7 +7,7 @@ import TextField from 'material-ui/TextField';
 import FileField from './fileField';
 import { connect, dispatch } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
-import { closeContentForm, generateTorrent, uploadToS3 } from '../actions/contentForm'
+import { generateTorrent, uploadToS3, submitContent } from '../actions/contentForm'
 
 const TitleField = ({ input, label, meta: { touched, error }, ...custom }) => (
   <TextField
@@ -19,18 +19,18 @@ const TitleField = ({ input, label, meta: { touched, error }, ...custom }) => (
   />
 )
 
-const DescriptionField = ({ input, label, meta: { touched, error }, ...custom }) => (
-  <TextField
-    floatingLabelText={label}
-    errorText={touched && error}
-    fullWidth={true}
-    multiLine={true}
-    rows={3}
-    rowsMax={6}
-    { ...input }
-    { ...custom }
-  />
-)
+// const DescriptionField = ({ input, label, meta: { touched, error }, ...custom }) => (
+//   <TextField
+//     floatingLabelText={label}
+//     errorText={touched && error}
+//     fullWidth={true}
+//     multiLine={true}
+//     rows={3}
+//     rowsMax={6}
+//     { ...input }
+//     { ...custom }
+//   />
+// )
 
 const TorrentField = ({ input, label, meta: { touched, error }, ...custom }) => (
   <TextField
@@ -45,12 +45,14 @@ const TorrentField = ({ input, label, meta: { touched, error }, ...custom }) => 
   />
 )
 
-class VideoDialog extends React.Component {
+const required = value => (value ? undefined : 'This field is required.')
+
+class ContentForm extends React.Component {
   handleFileChange(e) {
     this.props.generateTorrent(e.target.files);
     this.props.uploadToS3(e.target.files);
 
-    this.props.change("video", "file", e);
+    this.props.change("title", e.target.files[0].name);
   }
 
   render() {
@@ -58,21 +60,20 @@ class VideoDialog extends React.Component {
       <FlatButton
         label="Cancel"
         primary={true}
-        onClick={this.props.onClose}
+        onClick={this.props.history.goBack}
       />,
-      <FlatButton
+      <RaisedButton
         label="Submit"
         primary={true}
-        disabled={false}
+        disabled={!this.props.valid}
         onClick={this.props.handleSubmit}
       />,
     ];
     return (
       <Dialog
-        title="Add content"
         actions={actions}
         modal={true}
-        {...this.props}
+        open={true}
       >
         <Field
           component={FileField}
@@ -81,11 +82,10 @@ class VideoDialog extends React.Component {
           onChange={(e) => this.handleFileChange(e)}
         />
 
-        <Field name="title" component={TitleField} type="text" label="Title" />
-        <Field name="description" component={DescriptionField} type="text" label="Description" />
+        <Field name="title" component={TitleField} type="text" label="Title" validate={[required]} />
 
-        <Field name="torrent" component='input' type="hidden" />
-        <Field name="s3_key" component='input' type="hidden" />
+        <Field name="torrent" component='input' type="hidden" validate={[required]} />
+        <Field name="key" component='input' type="hidden" validate={[required]} />
 
       </Dialog>
     );
@@ -93,25 +93,22 @@ class VideoDialog extends React.Component {
 }
 
 const mapStateToProps = state => {
-  return {
-    open: state.contentForm.open
-    // processingStarted: (state.torrent.state == "started" || state.s3.state == "started"),
-    // processingFinished: (state.torrent.state == "created" || state.s3.state == "uploaded")
-  }
+  return {}
 }
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch, props) => {
   return {
-    onClose: id => {
-      dispatch(closeContentForm())
-    },
     generateTorrent: files => {
-      dispatch(generateTorrent("content", "torrent", files))
+      dispatch(generateTorrent("content", "torrent", files));
     },
     uploadToS3: files => {
-      dispatch(uploadToS3("content", "s3_key", files))
+      dispatch(uploadToS3("content", "key", files));
+    },
+    onSubmit: (values) => {
+      dispatch(submitContent(values));
+      props.history.goBack();
     }
   }
 }
 
-export default reduxForm({ form: "content" })(connect(mapStateToProps, mapDispatchToProps)(VideoDialog));
+export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({ form: "content" })(ContentForm));

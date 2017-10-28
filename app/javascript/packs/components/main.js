@@ -1,13 +1,20 @@
 import React from 'react';
 import RaisedButton from 'material-ui/RaisedButton';
 import AppBar from "./appbar";
-import VideoDialog from "./contentForm";
+import LinearProgress from 'material-ui/LinearProgress';
+import { connect } from 'react-redux';
 
-const Main = () => (
+const Main = (props) => (
   <div>
     <AppBar />
-    <VideoDialog />
+    {props.loading && <LinearProgress />}
   </div>
 );
 
-export default Main;
+const mapStateToProps = state => {
+  return {
+    loading: state.loading
+  }
+}
+
+export default connect(mapStateToProps, undefined)(Main);

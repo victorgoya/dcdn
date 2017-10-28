@@ -2,6 +2,7 @@
 import React from 'react';
 import Dropzone from 'react-dropzone'
 import FileUploadIcon from 'material-ui/svg-icons/file/file-upload';
+import CheckCircleIcon from 'material-ui/svg-icons/action/check-circle';
 import CircularProgress from 'material-ui/CircularProgress';
 
 const style = {
@@ -62,12 +63,17 @@ class FileField extends React.Component {
       );
     } else if (s3Upload == "done" && torrentCreation == "done") {
       return (
-        <div></div>
+        <Dropzone style={style.dropzone} {...dropzoneProps}>
+          <div style={style.label}>
+            <strong>All good! </strong>
+            Your file is ready to be submitted.
+          </div>
+          <CheckCircleIcon style={style.icon} />
+        </Dropzone>
       );
     } else {
       return (
         <div>
-          <input type='hidden' disabled {...input} />
           <Dropzone style={style.dropzone} {...dropzoneProps}>
             <div style={style.label}>
               <strong>Choose a file </strong>

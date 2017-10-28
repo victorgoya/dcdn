@@ -14,6 +14,7 @@
       data-s3bucket="<%= ENV["S3_BUCKET"] %>"
       data-s3region="<%= ENV["S3_REGION"] %>"
       data-s3signerurl="<%= s3_sign_url %>"
+      data-contentsurl="<%= api_contents_url(format: :json) %>"
     >
     </div>
   </body>
