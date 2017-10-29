@@ -7,7 +7,7 @@ import TextField from 'material-ui/TextField';
 import FileField from './fileField';
 import { connect, dispatch } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
-import { generateTorrent, uploadToS3, submitContent } from '../actions/contentForm'
+import { generateTorrent, uploadToS3, submitContent } from '../actions/contents';
 
 const TitleField = ({ input, label, meta: { touched, error }, ...custom }) => (
   <TextField
@@ -85,6 +85,7 @@ class ContentForm extends React.Component {
         <Field name="title" component={TitleField} type="text" label="Title" validate={[required]} />
 
         <Field name="torrent" component='input' type="hidden" validate={[required]} />
+        <Field name="info_hash" component='input' type="hidden" validate={[required]} />
         <Field name="key" component='input' type="hidden" validate={[required]} />
 
       </Dialog>
@@ -99,10 +100,10 @@ const mapStateToProps = state => {
 const mapDispatchToProps = (dispatch, props) => {
   return {
     generateTorrent: files => {
-      dispatch(generateTorrent("content", "torrent", files));
+      dispatch(generateTorrent("content", files));
     },
     uploadToS3: files => {
-      dispatch(uploadToS3("content", "key", files));
+      dispatch(uploadToS3("content", files));
     },
     onSubmit: (values) => {
       dispatch(submitContent(values));

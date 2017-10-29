@@ -9,6 +9,7 @@
     "create-torrent": "^3.29.2",
     "evaporate": "^2.1.4",
     "material-ui": "^0.19.4",
+    "parse-torrent": "^5.8.3",
     "prop-types": "^15.6.0",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",

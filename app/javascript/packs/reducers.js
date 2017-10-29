@@ -1,5 +1,6 @@
 import configuration from "./reducers/configuration";
 import loading from "./reducers/loading";
+import contents from "./reducers/contents";
 import { combineReducers } from "redux";
 import { reducer as formReducer, actionTypes as formActionTypes } from 'redux-form';
 
@@ -19,6 +20,7 @@ function setMetaState(state, metaName, value) {
 export default combineReducers({
   configuration,
   loading,
+  contents,
   form: formReducer.plugin({
     content: (state, action) => {
       switch (action.type) {

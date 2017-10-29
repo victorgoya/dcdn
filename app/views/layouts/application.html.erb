@@ -2,7 +2,7 @@
 <html>
   <head>
     <title>DCDN</title>
-    <%= csrf_meta_tags %>
+    <meta content='width=device-width, initial-scale=1' name='viewport'>
 
     <%= javascript_pack_tag 'application' %>
   </head>
@@ -14,7 +14,7 @@
       data-s3bucket="<%= ENV["S3_BUCKET"] %>"
       data-s3region="<%= ENV["S3_REGION"] %>"
       data-s3signerurl="<%= s3_sign_url %>"
-      data-contentsurl="<%= api_contents_url(format: :json) %>"
+      data-endpoint="<%= root_url + 'api' %>"
     >
     </div>
   </body>
