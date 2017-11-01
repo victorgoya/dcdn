@@ -1,8 +1,15 @@
 import reducers from "./reducers";
-import { applyMiddleware, createStore } from 'redux';
+import { compose, applyMiddleware, createStore } from 'redux';
 import logger from 'redux-logger';
 import thunk from 'redux-thunk';
+import persistState from 'redux-localstorage';
 
-let store = createStore(reducers, applyMiddleware(thunk), applyMiddleware(logger));
+const enhancer = compose(
+  applyMiddleware(thunk),
+  applyMiddleware(logger),
+  persistState(['currentToken'])
+)
+
+let store = createStore(reducers, enhancer);
 
 export default store;

@@ -61,7 +61,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = (dispatch, props) => {
   return {
-    onSubmit: (values) => dispatch(createToken(values))
+    onSubmit: (values) => {
+      dispatch(createToken(values));
+    }
   }
 }
 

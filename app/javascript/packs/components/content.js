@@ -5,12 +5,10 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 const Content = (props) => {
-  const torrentLink = `${props.configuration.endpoint}/contents/${props.content.id}.torrent`;
-
   return (
     <ListItem
       primaryText={props.content.title}
-      containerElement={<a href={torrentLink} />}
+      containerElement={<a href={props.content.torrent_key} download={true} />}
     />
   );
 };

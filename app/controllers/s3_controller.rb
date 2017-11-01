@@ -1,4 +1,7 @@
-class S3Controller < ActionController::Metal
+class S3Controller < ActionController::Base
+  include Knock::Authenticable
+  before_action :authenticate_user
+
   AWS_SERVICE = 's3'
 
   def sign

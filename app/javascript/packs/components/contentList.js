@@ -11,6 +11,12 @@ class ContentList extends React.Component {
     this.props.loadContents();
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (this.props.currentToken != nextProps.currentToken) {
+      this.props.loadContents();
+    }
+  }
+
   render() {
     return (
       <List>
@@ -22,7 +28,8 @@ class ContentList extends React.Component {
 
 function mapStateToProps(state) {
   return ({
-    contents: state.contents || []
+    contents: state.contents || [],
+    currentToken: state.currentToken
   });
 }
 
