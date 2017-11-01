@@ -9,29 +9,6 @@ import { connect, dispatch } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 import { generateTorrent, uploadToS3, submitContent } from '../actions/contents';
 
-const TitleField = ({ input, label, meta: { touched, error }, ...custom }) => (
-  <TextField
-    floatingLabelText={label}
-    errorText={touched && error}
-    fullWidth={true}
-    { ...input }
-    { ...custom }
-  />
-)
-
-// const DescriptionField = ({ input, label, meta: { touched, error }, ...custom }) => (
-//   <TextField
-//     floatingLabelText={label}
-//     errorText={touched && error}
-//     fullWidth={true}
-//     multiLine={true}
-//     rows={3}
-//     rowsMax={6}
-//     { ...input }
-//     { ...custom }
-//   />
-// )
-
 const TorrentField = ({ input, label, meta: { touched, error }, ...custom }) => (
   <TextField
     floatingLabelText={label}
@@ -82,8 +59,7 @@ class ContentForm extends React.Component {
           onChange={(e) => this.handleFileChange(e)}
         />
 
-        <Field name="title" component={TitleField} type="text" label="Title" validate={[required]} />
-
+        <Field name="title" component='input' type="hidden" validate={[required]} />
         <Field name="torrent_key" component='input' type="hidden" validate={[required]} />
         <Field name="info_hash" component='input' type="hidden" validate={[required]} />
         <Field name="key" component='input' type="hidden" validate={[required]} />

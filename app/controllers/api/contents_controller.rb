@@ -1,8 +1,8 @@
 class Api::ContentsController < ApiController
-  before_action :authenticate_user
+  before_action :authenticate_user, only: [:create]
 
   expose :contents, -> { Content.all }
-  expose :content
+  expose :content, fetch: -> { Content.find_by!(info_hash: params[:id] + "a") }
 
   def index
     render json: contents

@@ -21,7 +21,7 @@ export function generateTorrent(form, files) {
 
     const options = {
       name: files[0].name,
-      announceList: configuration.trackers.split(",")
+      announceList: [configuration.trackers.split(",")]
     }
     createTorrent(files, options, (err, torrent) => {
       const infoHash = parseTorrent(torrent).infoHash;
