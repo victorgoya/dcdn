@@ -1,6 +1,10 @@
 {
   "name": "dcdn",
   "private": true,
+  "engines": {
+    "node": "6.11.4",
+    "yarn": "1.2.1"
+  },
   "dependencies": {
     "@rails/webpacker": "^3.0.2",
     "aws-sdk": "^2.141.0",
