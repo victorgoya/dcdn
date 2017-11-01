@@ -31,7 +31,7 @@ export function generateTorrent(form, files) {
         const torrentFileName = `${infoHash}.torrent`
         evaporate.add({
           name: `torrents/${torrentFileName}`,
-          file: new File(torrent, torrentFileName),
+          file: new File([torrent], torrentFileName),
           complete: (_xhr, awsKey) => {
             dispatch(change(form, "torrent_key", awsKey));
             dispatch(setTorrentCreationState("done"));
