@@ -1,4 +1,6 @@
 class Api::ContentsController < ApiController
+  before_action :authenticate_user
+
   expose :contents, -> { Content.all }
   expose :content
 

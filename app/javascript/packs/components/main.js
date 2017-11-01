@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { Route, Switch, withRouter } from 'react-router'
 import ContentForm from './contentForm';
 import ContentList from './contentList';
+import LoginModal from './loginModal';
 
 const Main = (props) => (
   <div>
@@ -16,6 +17,8 @@ const Main = (props) => (
       <Route exact path="/" component={ContentList} />
       <Route path="/contents/new" component={ContentForm} />
     </Switch>
+
+    <LoginModal />
   </div>
 );
 

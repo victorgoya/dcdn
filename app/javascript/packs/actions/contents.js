@@ -2,7 +2,7 @@ import createTorrent from "../createTorrent";
 import parseTorrent from "../parseTorrent";
 
 import { change } from "redux-form";
-import { post, list } from "../http";
+import { create, find } from "../http";
 
 export function setS3UploadState(state) {
   return { type: "SET_S3_UPLOAD_STATE", state };
@@ -60,7 +60,7 @@ export function uploadToS3(form, files) {
 
 export function submitContent(values) {
   return (dispatch) => {
-    post("/contents", {
+    create("/contents", {
       content: {
         key: values.key,
         torrent_key: values.torrent_key,
@@ -68,14 +68,14 @@ export function submitContent(values) {
         title: values.title,
         description: values.description
       }
-    }).then(res => dispatch({ type: "CONTENTS_SET", payload: [res] }))
+    })
+    .then(res => dispatch({ type: "CONTENTS_SET", payload: [res] }))
   }
 }
 
 export function loadContents(options = {}) {
   return (dispatch) => {
-    list("/contents").then(res => {
-      dispatch({ type: "CONTENTS_SET", payload: res });
-    })
+    find("/contents")
+    .then(res =>  dispatch({ type: "CONTENTS_SET", payload: res }));
   }
 }

@@ -22,7 +22,7 @@ class ContentList extends React.Component {
 
 function mapStateToProps(state) {
   return ({
-    contents: state.contents
+    contents: state.contents || []
   });
 }
 

@@ -2,6 +2,7 @@ import configuration from "./reducers/configuration";
 import loading from "./reducers/loading";
 import contents from "./reducers/contents";
 import evaporate from "./reducers/evaporate";
+import currentToken from "./reducers/currentToken";
 import { combineReducers } from "redux";
 import { reducer as formReducer, actionTypes as formActionTypes } from 'redux-form';
 
@@ -23,6 +24,7 @@ export default combineReducers({
   loading,
   contents,
   evaporate,
+  currentToken,
   form: formReducer.plugin({
     content: (state, action) => {
       switch (action.type) {
