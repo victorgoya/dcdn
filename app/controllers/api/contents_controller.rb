@@ -14,9 +14,13 @@ class Api::ContentsController < ApiController
     end
   end
 
+  def show
+    render json: content
+  end
+
   protected
 
   def content_params
-    params.require(:content).permit(:key, :torrent, :title, :info_hash)
+    params.require(:content).permit(:key, :torrent_key, :title, :info_hash)
   end
 end

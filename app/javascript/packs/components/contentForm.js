@@ -84,7 +84,7 @@ class ContentForm extends React.Component {
 
         <Field name="title" component={TitleField} type="text" label="Title" validate={[required]} />
 
-        <Field name="torrent" component='input' type="hidden" validate={[required]} />
+        <Field name="torrent_key" component='input' type="hidden" validate={[required]} />
         <Field name="info_hash" component='input' type="hidden" validate={[required]} />
         <Field name="key" component='input' type="hidden" validate={[required]} />
 

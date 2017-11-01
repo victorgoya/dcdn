@@ -6,10 +6,8 @@
     "aws-sdk": "^2.141.0",
     "babel-preset-react": "^6.24.1",
     "coffeescript": "1.12.7",
-    "create-torrent": "^3.29.2",
     "evaporate": "^2.1.4",
     "material-ui": "^0.19.4",
-    "parse-torrent": "^5.8.3",
     "prop-types": "^15.6.0",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
@@ -17,7 +15,6 @@
     "react-redux": "^5.0.6",
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
-    "react-router-modal": "^1.2.0",
     "redux": "^3.7.2",
     "redux-form": "^7.1.1",
     "redux-logger": "^3.0.6",
@@ -25,5 +22,6 @@
   },
   "devDependencies": {
     "webpack-dev-server": "^2.9.3"
-  }
+  },
+  "scripts": {}
 }

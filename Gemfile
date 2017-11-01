@@ -55,5 +55,6 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'webpacker', github: "rails/webpacker"
 gem 'figaro'
+gem 'dotenv'
 gem 'decent_exposure', '3.0.0'
 gem 'active_model_serializers'

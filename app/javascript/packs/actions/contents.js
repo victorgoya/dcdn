@@ -1,8 +1,6 @@
 import createTorrent from "../createTorrent";
 import parseTorrent from "../parseTorrent";
 
-import Evaporate from "evaporate";
-import AWS from "aws-sdk";
 import { change } from "redux-form";
 import { post, list } from "../http";
 
@@ -15,13 +13,29 @@ export function setTorrentCreationState(state) {
 }
 
 export function generateTorrent(form, files) {
-  return dispatch => {
+  return (dispatch, getState) => {
     dispatch(setTorrentCreationState("started"));
-    createTorrent(files, {}, (err, torrent) => {
-      dispatch(change(form, "torrent", torrent));
-      dispatch(change(form, "info_hash", parseTorrent(torrent).infoHash));
+    const { configuration, evaporate } = getState();
 
-      dispatch(setTorrentCreationState("done"));
+    const options = {
+      name: files[0].name,
+      announceList: configuration.trackers.split(",")
+    }
+    createTorrent(files, options, (err, torrent) => {
+      const infoHash = parseTorrent(torrent).infoHash;
+      dispatch(change(form, "info_hash", infoHash));
+
+      evaporate.then((evaporate) => {
+        const torrentFileName = `${infoHash}.torrent`
+        evaporate.add({
+          name: torrentFileName,
+          file: new File(torrent, torrentFileName),
+          complete: (_xhr, awsKey) => {
+            dispatch(change(form, "torrent_key", awsKey));
+            dispatch(setTorrentCreationState("done"));
+          }
+        });
+      });
     });
   };
 }
@@ -30,16 +44,8 @@ export function uploadToS3(form, files) {
   return (dispatch, getState) => {
     dispatch(setS3UploadState("started"));
 
-    const { configuration } = getState();
-    Evaporate.create({
-      signerUrl: configuration.s3signerurl,
-      aws_key: configuration.s3key,
-      bucket: configuration.s3bucket,
-      computeContentMd5: true,
-      cryptoMd5Method: (data) => { AWS.util.crypto.md5(data, 'base64') },
-      cryptoHexEncodedHash256: (data) => { return AWS.util.crypto.sha256(data, 'hex'); }
-    })
-    .then((evaporate) => {
+    const { configuration, evaporate } = getState();
+    evaporate.then((evaporate) => {
       evaporate.add({
         name: files[0].name,
         file: files[0],
@@ -47,7 +53,7 @@ export function uploadToS3(form, files) {
           dispatch(setS3UploadState("done"));
           dispatch(change(form, "key", awsKey));
         }
-      })
+      });
     });
   };
 }
@@ -57,7 +63,7 @@ export function submitContent(values) {
     post("/contents", {
       content: {
         key: values.key,
-        torrent: values.torrent.toString('base64'),
+        torrent_key: values.torrent_key,
         info_hash: values.info_hash,
         title: values.title,
         description: values.description
