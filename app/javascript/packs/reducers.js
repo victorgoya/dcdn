@@ -2,6 +2,8 @@ import configuration from "./reducers/configuration";
 import loading from "./reducers/loading";
 import contents from "./reducers/contents";
 import currentToken from "./reducers/currentToken";
+import currentContent from "./reducers/currentContent";
+import currentPreview from "./reducers/currentPreview";
 import { combineReducers } from "redux";
 import { reducer as formReducer, actionTypes as formActionTypes } from 'redux-form';
 
@@ -23,6 +25,8 @@ export default combineReducers({
   loading,
   contents,
   currentToken,
+  currentContent,
+  currentPreview,
   form: formReducer.plugin({
     content: (state, action) => {
       switch (action.type) {

@@ -5,6 +5,7 @@ import LinearProgress from 'material-ui/LinearProgress';
 import { connect } from 'react-redux';
 import { Route, Switch, withRouter } from 'react-router'
 import ContentForm from './contentForm';
+import EditContentForm from './editContentForm';
 import ContentList from './contentList';
 import LoginModal from './loginModal';
 
@@ -16,6 +17,7 @@ const Main = (props) => (
     <Switch>
       <Route exact path="/" component={ContentList} />
       <Route path="/contents/new" component={ContentForm} />
+      <Route path="/contents/:id" component={EditContentForm} />
     </Switch>
 
     <LoginModal />

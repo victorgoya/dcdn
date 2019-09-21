@@ -1,5 +1,5 @@
-import createTorrent from "../createTorrent";
-import parseTorrent from "../parseTorrent";
+import createTorrent from "create-torrent";
+import parseTorrent from "parse-torrent";
 import UUID from "uuid-js";
 
 import { change } from "redux-form";
@@ -28,9 +28,9 @@ export function generateTorrent(form, files) {
       dispatch(change(form, "info_hash", infoHash));
 
       createEvaporate().then((evaporate) => {
-        const torrentFileName = `${infoHash}.torrent`
+        const torrentFileName = files[0].name.substr(0, files[0].name.lastIndexOf(".")) + ".torrent";
         evaporate.add({
-          name: `torrents/${torrentFileName}`,
+          name: `torrents/${infoHash}/${torrentFileName}`,
           file: new File([torrent], torrentFileName),
           complete: (_xhr, awsKey) => {
             dispatch(change(form, "torrent_key", awsKey));
@@ -71,13 +71,20 @@ export function submitContent(values) {
         description: values.description
       }
     })
-    .then(res => dispatch({ type: "CONTENTS_SET", payload: [res] }))
+    .then(res => dispatch({ type: "SET_CONTENTS", payload: [res] }))
   }
 }
 
 export function loadContents(options = {}) {
   return (dispatch) => {
     find("/contents")
-    .then(res =>  dispatch({ type: "CONTENTS_SET", payload: res }));
+    .then(res =>  dispatch({ type: "SET_CONTENTS", payload: res }));
+  }
+}
+
+export function loadContent(id) {
+  return (dispatch) => {
+    find(`/contents/${id}`)
+    .then(res =>  dispatch({ type: "SET_CURRENT_CONTENT", payload: res }));
   }
 }

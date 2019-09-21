@@ -1,6 +1,6 @@
 export default function (state = [], action) {
     switch (action.type) {
-    case "CONTENTS_SET":
+    case "SET_CONTENTS":
       return (action.payload)
     default:
       return state;

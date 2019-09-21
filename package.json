@@ -10,8 +10,10 @@
     "aws-sdk": "^2.141.0",
     "babel-preset-react": "^6.24.1",
     "coffeescript": "1.12.7",
+    "create-torrent": "^3.29.2",
     "evaporate": "^2.1.4",
     "material-ui": "^0.19.4",
+    "parse-torrent": "^5.8.3",
     "prop-types": "^15.6.0",
     "query-string": "^5.0.1",
     "react": "^16.0.0",
@@ -25,7 +27,8 @@
     "redux-localstorage": "^0.4.1",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.2.0",
-    "uuid-js": "^0.7.5"
+    "uuid-js": "^0.7.5",
+    "webtorrent": "^0.98.20"
   },
   "devDependencies": {
     "webpack-dev-server": "^2.9.3"

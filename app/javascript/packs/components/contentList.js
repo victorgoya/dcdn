@@ -20,7 +20,7 @@ class ContentList extends React.Component {
   render() {
     return (
       <List>
-        {this.props.contents.map((content) => <Content {...this.props} key={content.id} content={content} />)}
+        {this.props.contents.map((content) => <Content {...this.props} key={content.info_hash} content={content} />)}
       </List>
     );
   }

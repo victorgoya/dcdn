@@ -3,24 +3,10 @@ import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 
-import TextField from 'material-ui/TextField';
 import FileField from './fileField';
 import { connect, dispatch } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 import { generateTorrent, uploadToS3, submitContent } from '../actions/contents';
-
-const TorrentField = ({ input, label, meta: { touched, error }, ...custom }) => (
-  <TextField
-    floatingLabelText={label}
-    errorText={touched && error}
-    fullWidth={true}
-    multiLine={true}
-    rows={3}
-    rowsMax={6}
-    { ...input }
-    { ...custom }
-  />
-)
 
 const required = value => (value ? undefined : 'This field is required.')
 

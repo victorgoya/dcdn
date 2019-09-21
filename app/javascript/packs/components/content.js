@@ -8,7 +8,7 @@ const Content = (props) => {
   return (
     <ListItem
       primaryText={props.content.title}
-      containerElement={<a href={props.content.torrent_url} download={true} />}
+      containerElement={<Link to={`/contents/${props.content.info_hash}`} />}
     />
   );
 };

@@ -1,3 +1,5 @@
 const environment = require('./environment')
 
-module.exports = environment.toWebpackConfig()
+config = environment.toWebpackConfig()
+config.node = { fs: 'empty' };
+module.exports = config;
